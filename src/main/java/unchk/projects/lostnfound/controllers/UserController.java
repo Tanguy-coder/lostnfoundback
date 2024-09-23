@@ -10,6 +10,8 @@ import unchk.projects.lostnfound.requests.LoginRequest;
 import unchk.projects.lostnfound.requests.RegisterRequest;
 import unchk.projects.lostnfound.services.UserService;
 
+import java.util.List;
+
 @RestController
 public class UserController {
 
@@ -41,6 +43,7 @@ public class UserController {
         return ResponseEntity.ok("User registered successfully");
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/login")
     public ResponseEntity<Users> login(@RequestBody LoginRequest loginRequest) {
         Users user = userService.findUserByEmailAndPassword(loginRequest);
@@ -51,4 +54,11 @@ public class UserController {
         }
     }
 
-}
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/roles")
+    public List <Roles> getRoles() {
+        return roleRepository.findAll();
+    }
+
+    }
+
