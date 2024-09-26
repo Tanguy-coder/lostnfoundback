@@ -1,5 +1,7 @@
 package unchk.projects.lostnfound.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -23,6 +25,8 @@ public class Users {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
+    
+    @JsonIgnore // Ignore cette relation lors de la sérialisation
     private Roles role;
 
     public Users() {

@@ -21,8 +21,13 @@ public class UserServiceImplement implements UserService {
 
     @Override
     public Users findUserByEmailAndPassword(LoginRequest loginRequest) {
-        return userRepository.findByEmailAndPassword(loginRequest.getEmail(), loginRequest.getPassword());
+        Users user = userRepository.findByEmailAndPassword(loginRequest.getEmail(),loginRequest.getPassword());
+        if (user != null && user.getPassword().equals(loginRequest.getPassword())) {
+            return user;
+        }
+        return null; // Renvoie null si les informations d'identification ne correspondent pas
     }
+
 
     
     @Override
