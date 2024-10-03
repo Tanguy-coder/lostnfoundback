@@ -9,7 +9,7 @@ import unchk.projects.lostnfound.repos.RoleRepository;
 import unchk.projects.lostnfound.repos.UserRepository;
 
 @SpringBootTest
-class LostnfoundApplicationTests {
+class mainpbTests {
 
 	@Autowired
 	private UserRepository userRepository;

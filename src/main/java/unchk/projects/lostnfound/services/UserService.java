@@ -5,6 +5,7 @@ import unchk.projects.lostnfound.models.Users;
 import unchk.projects.lostnfound.requests.LoginRequest;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface UserService {
@@ -16,4 +17,7 @@ public interface UserService {
     void deleteUserById(Long id);
     Users getUserById(Long id);
     List<Users> getAllUsers();
+    Users getAuthenticatedUser(String username);
+    Users findByUsername(String username);
+	
 }

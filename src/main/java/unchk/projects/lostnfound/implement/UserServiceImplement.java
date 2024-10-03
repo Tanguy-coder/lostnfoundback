@@ -8,6 +8,7 @@ import unchk.projects.lostnfound.requests.LoginRequest;
 import unchk.projects.lostnfound.services.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImplement implements UserService {
@@ -59,4 +60,17 @@ public class UserServiceImplement implements UserService {
     public List<Users> getAllUsers() {
         return userRepository.findAll();
     }
+    
+    @Override
+    public Users getAuthenticatedUser(String username){
+    	
+    	return userRepository.findByUsername(username);
+    	
+    }
+    
+    public Users findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+    
+    
 }

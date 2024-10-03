@@ -6,4 +6,5 @@ import unchk.projects.lostnfound.models.Users;
 
 public interface UserRepository extends JpaRepository<Users, Long> {
     Users findByEmailAndPassword(String email, String password);
+    Users findByUsername(String username);
 }
