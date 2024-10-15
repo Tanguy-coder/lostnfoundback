@@ -1,25 +1,58 @@
 package unchk.projects.lostnfound.models;
 
-import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+
+import java.util.Date;
+
+
+
 
 @Entity
+@Table(name = "messages")
 public class Message {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String message;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private Users user;
+    @ManyToOne
+    @JoinColumn(name = "sender_id", nullable = false)
+    private Users sender;  // Utilisateur qui envoie le message
 
+    @ManyToOne
+    @JoinColumn(name = "receiver_id", nullable = false)
+    private Users receiver;  // Utilisateur qui reçoit le message
+
+    @Column(nullable = false)
+    private String content;  // Contenu du message
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "sent_at", nullable = false)
+    private Date sentAt;  // Date et heure de l'envoi du message
+
+    // Constructeur sans argument
     public Message() {
     }
 
-    public Message(String message, Users user) {
-        this.message = message;
-        this.user = user;
+    // Constructeur avec arguments
+    public Message(Users sender, Users receiver, String content, Date sentAt) {
+        this.sender = sender;
+        this.receiver = receiver;
+        this.content = content;
+        this.sentAt = sentAt;
     }
+
+    // Getters et Setters
 
     public Long getId() {
         return id;
@@ -29,19 +62,35 @@ public class Message {
         this.id = id;
     }
 
-    public String getMessage() {
-        return message;
+    public Users getSender() {
+        return sender;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setSender(Users sender) {
+        this.sender = sender;
     }
 
-    public Users getUser() {
-        return user;
+    public Users getReceiver() {
+        return receiver;
     }
 
-    public void setUser(Users user) {
-        this.user = user;
+    public void setReceiver(Users receiver) {
+        this.receiver = receiver;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Date getSentAt() {
+        return sentAt;
+    }
+
+    public void setSentAt(Date sentAt) {
+        this.sentAt = sentAt;
     }
 }
