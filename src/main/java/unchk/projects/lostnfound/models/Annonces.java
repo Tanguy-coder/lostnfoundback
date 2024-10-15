@@ -13,7 +13,7 @@ public class Annonces {
     private Long id;
     private String titre;
     private String description;
-    private String url_image;
+    private String image;
     private String repertoire;
     private String contact;
     @Temporal(TemporalType.TIMESTAMP)
@@ -32,10 +32,10 @@ public class Annonces {
         super();
     }
 
-    public Annonces(String titre, String description, String url_image, String repertoire, String contact, Date date_publication, Date date, Double longitude, Double latitude, String lieu, Boolean status, Users user) {
+    public Annonces(String titre, String description, String image, String repertoire, String contact, Date date_publication, Date date, Double longitude, Double latitude, String lieu, Boolean status, Users user) {
         this.titre = titre;
         this.description = description;
-        this.url_image = url_image;
+        this.image = image;
         this.repertoire = repertoire;
         this.contact = contact;
         this.date_publication = date_publication;
@@ -71,12 +71,12 @@ public class Annonces {
         this.description = description;
     }
 
-    public String getUrl_image() {
-        return url_image;
+    public String getImage() {
+        return image;
     }
 
-    public void setUrl_image(String url_image) {
-        this.url_image = url_image;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getRepertoire() {
