@@ -83,7 +83,7 @@ public class AnnonceController {
             Files.write(path, file.getBytes());
 
             String publicUrl = "/uploads/" + fileName;
-            a.setUrl_image(publicUrl);
+            a.setImage(publicUrl);
         }
 
         Optional<Users> userOptional = userRepository.findById(Long.parseLong(user));
