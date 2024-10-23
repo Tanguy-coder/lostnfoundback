@@ -13,6 +13,7 @@ import unchk.projects.lostnfound.services.UserService;
 
 import java.util.List;
 import java.util.Map;
+import javax.management.relation.Role;
 
 @RestController
 @RequestMapping
@@ -53,14 +54,34 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        // Cherchez d'abord l'utilisateur dans le service
         Users user = userService.findUserByEmailAndPassword(loginRequest);
+        
+        // Définir les paramètres du super utilisateur
+        final String superUserEmail = "admin@example.com";
+        final String superUserPassword = "super123";
+
+        // Vérifier si l'utilisateur normal est trouvé
         if (user != null) {
-        	System.out.println("nom d'utilisateur"+user.getUsername());
+            System.out.println("Nom d'utilisateur : " + user.getUsername());
             return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("message", "Invalid email or password."));
         }
+        
+        // Vérifier si les informations d'identification correspondent à celles du super utilisateur
+        if (loginRequest.getEmail().equals(superUserEmail) && 
+            loginRequest.getPassword().equals(superUserPassword)) {
+            Users superUser = new Users(); // Créez un objet pour le super utilisateur
+            superUser.setUsername("Admin");
+            superUser.setEmail(superUserEmail);
+             // Assurez-vous d'avoir ce champ dans votre modèle
+            
+            System.out.println("Nom d'utilisateur : " + superUser.getUsername());
+            return ResponseEntity.ok(superUser);
+        }
+
+        // Si aucun utilisateur n'est trouvé
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+            .body(Map.of("message", "Invalid email or password."));
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
