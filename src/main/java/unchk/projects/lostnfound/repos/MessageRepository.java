@@ -24,5 +24,11 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     
     // Trouver les messages où l'utilisateur est soit l'expéditeur (sender) soit le destinataire (receiver)
     List<Message> findBySenderIdOrReceiverId(Long senderId, Long receiverId);
+    
+    
+    // Récupérer tous les messages pour une annonce donnée
+    List<Message> findByAnnonceId(Long annonceId);
+    
+    
 }
 

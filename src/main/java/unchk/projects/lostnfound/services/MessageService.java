@@ -39,6 +39,11 @@ public class MessageService {
         return messageRepository.findBySenderIdOrReceiverId(userId, userId);
     }
     
+    // Récupérer les messages par annonce
+    public List<Message> findMessagesByAnnonceId(Long annonceId) {
+        return messageRepository.findByAnnonceId(annonceId);
+    }
+    
    
     public Message saveMessage(Message message) {
        

@@ -39,6 +39,10 @@ public class Message {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "sent_at", nullable = false)
     private Date sentAt;  // Date et heure de l'envoi du message
+    
+    @ManyToOne
+    @JoinColumn(name = "annonce_id")
+    private Annonces annonce;
 
     // Constructeur sans argument
     public Message() {
