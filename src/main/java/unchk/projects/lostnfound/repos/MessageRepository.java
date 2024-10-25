@@ -1,6 +1,7 @@
 package unchk.projects.lostnfound.repos;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import unchk.projects.lostnfound.models.Annonces;
 import unchk.projects.lostnfound.models.Message;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,8 +27,21 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findBySenderIdOrReceiverId(Long senderId, Long receiverId);
     
     
-    // Récupérer tous les messages pour une annonce donnée
+    List<Message> findBySenderIdAndReceiverId(Long senderId, Long receiverId);
+
+    
+    List<Message> findBySenderIdAndReceiverIdAndAnnonceId(Long senderId, Long receiverId, Long annonceId);  
+   
+    
+    List<Message> findByAnnonce(Annonces annonce);
+    
     List<Message> findByAnnonceId(Long annonceId);
+
+    
+    
+    
+    
+    // Utilisez l'objet Annonce au lieu de l'ID
     
     
 }

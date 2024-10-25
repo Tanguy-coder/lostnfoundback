@@ -1,28 +1,30 @@
 package unchk.projects.lostnfound.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-
+import unchk.projects.lostnfound.models.Annonces;
 import unchk.projects.lostnfound.models.Message;
 import unchk.projects.lostnfound.repos.MessageRepository;
-import org.springframework.transaction.annotation.Transactional;
+import unchk.projects.lostnfound.repos.AnnonceRepository;
 
 import java.util.List;
 
 @Service
-
 public class MessageService {
 
     private final MessageRepository messageRepository;
+    private final AnnonceRepository annonceRepository; // Injection du repository pour les annonces
 
-    public MessageService(MessageRepository messageRepository) {
+    @Autowired
+    public MessageService(MessageRepository messageRepository, AnnonceRepository annonceRepository) {
         this.messageRepository = messageRepository;
+        this.annonceRepository = annonceRepository;
     }
 
     @Transactional
     public Message sendMessage(Message message) {
-    	   	
-    	
         return messageRepository.save(message);
     }
 
@@ -33,32 +35,25 @@ public class MessageService {
     public List<Message> getMessagesBySenderId(Long senderId) {
         return messageRepository.findBySenderId(senderId);
     }
-    
-    // Récupérer les messages envoyés ou reçus par un utilisateur
+
     public List<Message> getMessagesByUser(Long userId) {
         return messageRepository.findBySenderIdOrReceiverId(userId, userId);
     }
-    
-    // Récupérer les messages par annonce
-    public List<Message> findMessagesByAnnonceId(Long annonceId) {
+
+    public Message saveMessage(Message message) {
+        return messageRepository.save(message);
+    }
+
+    public List<Message> getMessagesBetweenUsers(Long senderId, Long receiverId, Long annonceId) {
+        return messageRepository.findBySenderIdAndReceiverIdAndAnnonceId(senderId, receiverId, annonceId);
+    }
+
+    public Annonces getAnnonceById(Long annonceId) {
+        return annonceRepository.findById(annonceId).orElse(null);
+    }
+
+    // Récupérer tous les messages liés à une annonce
+    public List<Message> getMessagesByAnnonce(Long annonceId) {
         return messageRepository.findByAnnonceId(annonceId);
     }
-    
-   
-    public Message saveMessage(Message message) {
-       
-       messageRepository.save(message);
-      
-        
-		return message;
-    }
-    
-    
-   
-
-    
-    }
-
-
-
-
+}

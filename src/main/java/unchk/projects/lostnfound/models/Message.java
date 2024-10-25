@@ -1,16 +1,7 @@
 package unchk.projects.lostnfound.models;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -25,7 +16,7 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "sender_id", nullable = false)
     private Users sender;  // Utilisateur qui envoie le message
 
@@ -39,24 +30,23 @@ public class Message {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "sent_at", nullable = false)
     private Date sentAt;  // Date et heure de l'envoi du message
-    
+
     @ManyToOne
     @JoinColumn(name = "annonce_id")
     private Annonces annonce;
 
     // Constructeur sans argument
     public Message() {
+        super();
     }
 
-    // Constructeur avec arguments
-    public Message(Users sender, Users receiver, String content, Date sentAt) {
+    public Message(Users sender, Users receiver, String content, Date sentAt, Annonces annonce) {
         this.sender = sender;
         this.receiver = receiver;
         this.content = content;
         this.sentAt = sentAt;
+        this.annonce = annonce;
     }
-
-    // Getters et Setters
 
     public Long getId() {
         return id;
@@ -96,5 +86,13 @@ public class Message {
 
     public void setSentAt(Date sentAt) {
         this.sentAt = sentAt;
+    }
+
+    public Annonces getAnnonce() {
+        return annonce;
+    }
+
+    public void setAnnonce(Annonces annonce) {
+        this.annonce = annonce;
     }
 }
