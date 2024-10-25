@@ -95,4 +95,5 @@ public class Message {
     public void setAnnonce(Annonces annonce) {
         this.annonce = annonce;
     }
+
 }
