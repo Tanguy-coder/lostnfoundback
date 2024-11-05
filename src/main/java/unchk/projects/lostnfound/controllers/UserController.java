@@ -102,11 +102,15 @@ public class UserController {
     public ResponseEntity<Users> getUser(@PathVariable("userId") long id) {
         Users user = userService.findUserById(id);
         System.out.println("a la recuperation"+id);
+        
         if (user != null) {
+        	
             return ResponseEntity.ok(user);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(null); // ou un message d'erreur si nécessaire
+            
+            
         }
     }
 

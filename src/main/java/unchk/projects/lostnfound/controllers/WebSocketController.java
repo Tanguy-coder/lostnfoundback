@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,7 +30,7 @@ import unchk.projects.lostnfound.services.MessageService;
 public class WebSocketController {
   
 	
-	
+	@Autowired
 	private final MessageService messageService;
 	private static final Logger logger = LoggerFactory.getLogger(WebSocketController.class);
 
@@ -38,12 +40,13 @@ public class WebSocketController {
     }
 	
 
-
+    
     @MessageMapping("/sendMessage")
     @SendTo("/topic/messages")
-    public Message sendMessage(Message message) {
+    public Message sendMessage( Message message) {
     	
-    	System.out.println("mgg"+message);
+    	
+    	System.out.println("envoyé"+message);
     	
    
         messageService.saveMessage(message);
@@ -59,20 +62,22 @@ public class WebSocketController {
     
     // Récupération des messages pour l'utilisateur connecté (m1) et un autre utilisateur spécifique (userId)
     
-    @GetMapping("/msg/{userId}/{u2}/{ann}")
+    
+    @GetMapping("/msg/{userId}/{userId2}/{annonceId}")
     public ResponseEntity<List<Message>> getMessagesBetweenUsers(
             @PathVariable Long userId,
-            @PathVariable Long u2,
-            @PathVariable Long ann,
-            @RequestParam(required = false) Long annonceId) {
+            @PathVariable Long userId2,
+            @PathVariable Long annonceId
+            ) {
     	
-    	System.out.println("userid"+userId+"u2"+u2+"ann:"+ann);
+    	System.out.println("userid"+userId+"u2"+userId2+"ann:"+annonceId);
         
         List<Message> messages;
         
         // Récupérer les messages liés à l'annonce et aux utilisateurs spécifiés
         
-            messages = messageService.getMessagesBetweenUsers(u2, userId,ann);
+            messages = messageService.getMessagesBetweenUsers(userId, userId2,annonceId);
+            System.out.println("les messages trouvé:"+messages.size());
 
         return ResponseEntity.ok(messages);
     }

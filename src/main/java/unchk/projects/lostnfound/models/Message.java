@@ -1,29 +1,51 @@
 package unchk.projects.lostnfound.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.*;
 
 import java.util.Date;
+
+import org.springframework.ws.transport.http.AbstractHttpSenderConnection;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 
 
 @Entity
 @Table(name = "messages")
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
+   
+    
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "sender_id", nullable = false)
-    private Users sender;  // Utilisateur qui envoie le message
-
+   
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Users sender;// Utilisateur qui envoie le message
+    
+    
+    
     @ManyToOne
     @JoinColumn(name = "receiver_id", nullable = false)
-    private Users receiver;  // Utilisateur qui reçoit le message
+    
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Users receiver;// Utilisateur qui reçoit le message
 
+    
+    
+    
     @Column(nullable = false)
     private String content;  // Contenu du message
 
@@ -31,8 +53,12 @@ public class Message {
     @Column(name = "sent_at", nullable = false)
     private Date sentAt;  // Date et heure de l'envoi du message
 
+    
     @ManyToOne
     @JoinColumn(name = "annonce_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
     private Annonces annonce;
 
     // Constructeur sans argument

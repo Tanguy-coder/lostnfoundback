@@ -1,6 +1,9 @@
 package unchk.projects.lostnfound.repos;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import unchk.projects.lostnfound.models.Annonces;
 import unchk.projects.lostnfound.models.Message;
 
@@ -38,7 +41,9 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findByAnnonceId(Long annonceId);
 
     
-    
+  
+  
+
     
     
     // Utilisez l'objet Annonce au lieu de l'ID
