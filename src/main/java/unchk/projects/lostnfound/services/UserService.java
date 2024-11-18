@@ -19,5 +19,5 @@ public interface UserService {
     List<Users> getAllUsers();
     Users getAuthenticatedUser(String username);
     Users findByUsername(String username);
-	
+    boolean emailExists(String email);
 }

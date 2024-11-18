@@ -33,6 +33,11 @@ public class UserController {
     public ResponseEntity<?> registerUser(@RequestBody RegisterRequest registerRequest) {
         Roles role = roleRepository.findByName(registerRequest.getRole());
 
+        if (userService.emailExists(registerRequest.getEmail())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", "Cet email est déjà utilisé."));
+        }
+
         Users user = new Users();
         user.setName(registerRequest.getName());
         user.setPassword(registerRequest.getPassword()); // Assurez-vous de hacher le mot de passe
@@ -40,16 +45,17 @@ public class UserController {
         user.setPhone(registerRequest.getTelephone());
         user.setUsername(registerRequest.getUsername());
         user.setRole(role);
-        
+
         try {
             userService.saveUser(user);
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(Map.of("message", "User registered successfully"));
+                    .body(Map.of("message", "Utilisateur enregistré avec succès."));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("error", e.getMessage()));
         }
     }
+
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/login")
@@ -62,7 +68,7 @@ public class UserController {
         final String superUserPassword = "super123";
 
         // Vérifier si l'utilisateur normal est trouvé
-        if (user != null) {
+        if (user != null ) {
             System.out.println("Nom d'utilisateur : " + user.getUsername());
            
             return ResponseEntity.ok(user);

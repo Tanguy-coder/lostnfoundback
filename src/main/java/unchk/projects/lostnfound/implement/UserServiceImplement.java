@@ -30,6 +30,9 @@ public class UserServiceImplement implements UserService {
     }
 
 
+    public boolean emailExists(String email) {
+        return userRepository.existsByEmail(email);
+    }
     
     @Override
     public Users saveUser(Users user) {

@@ -10,10 +10,11 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "Users")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
 public class Users {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-   
     private Long id;
 
     private String name;
@@ -24,6 +25,7 @@ public class Users {
     @Column(unique = true, nullable = false)
     private String email;
 
+    
     @Column(nullable = false)
     private String password;
 
@@ -31,16 +33,13 @@ public class Users {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
-    
-    
     private Roles role;
 
-    public Users() {
-        super();
-    }
+    // Constructeur par défaut
+    public Users() {}
 
+    // Constructeur avec tous les champs
     public Users(String name, String username, String email, String password, String phone, Roles role) {
-        super();
         this.name = name;
         this.username = username;
         this.email = email;
@@ -49,6 +48,12 @@ public class Users {
         this.role = role;
     }
 
+    // Constructeur avec id uniquement (pour désérialisation simplifiée)
+    public Users(Long id) {
+        this.id = id;
+    }
+
+    // Getters et Setters
     public Long getId() {
         return id;
     }
@@ -74,7 +79,7 @@ public class Users {
     }
 
     public String getEmail() {
-       return email;
+        return email;
     }
 
     public void setEmail(String email) {
