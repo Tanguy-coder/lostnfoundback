@@ -83,6 +83,25 @@ public class WebSocketController {
     }
     
     
+    // Nouvelle méthode pour récupérer tous les messages
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/messages")
+    public ResponseEntity<List<Message>> getAllMessages() {
+        List<Message> messages = messageService.getAllMessages();
+
+        if (messages.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        
+        System.out.println("les mess"+messages);
+
+        return ResponseEntity.ok(messages);
+    }
+    
+    
+    
+    
+    
     
     
    

@@ -54,7 +54,7 @@ public class Message {
     private Date sentAt;  // Date et heure de l'envoi du message
 
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "annonce_id")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

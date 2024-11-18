@@ -65,6 +65,10 @@ public class MessageService {
         return messageRepository.findByAnnonceId(annonceId);
     }
     
+    public List<Message> getAllMessages() {
+        return messageRepository.findAll();
+    }
+    
     
   
     

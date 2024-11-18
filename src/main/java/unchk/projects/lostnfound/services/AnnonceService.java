@@ -15,4 +15,7 @@ public interface AnnonceService {
     void deleteAnnonceById(Long id);
     Annonces findAnnonceById(Long id);
     List<Annonces> findAllAnnonces();
+    void deleteAnnonce(Long annonceId);
+    
+    
 }

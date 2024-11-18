@@ -27,7 +27,7 @@ public class Annonces {
     private Double longitude;
     private Double latitude;
     private String lieu;
-    private Boolean status;
+    private String status;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private Users user;
@@ -36,7 +36,7 @@ public class Annonces {
         super();
     }
 
-    public Annonces(String titre, String description, String image, String repertoire, String contact, Date date_publication, Date date, Double longitude, Double latitude, String lieu, Boolean status, Users user) {
+    public Annonces(String titre, String description, String image, String repertoire, String contact, Date date_publication, Date date, Double longitude, Double latitude, String lieu, String status, Users user) {
         this.titre = titre;
         this.description = description;
         this.image = image;
@@ -139,11 +139,11 @@ public class Annonces {
         this.lieu = lieu;
     }
 
-    public Boolean getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

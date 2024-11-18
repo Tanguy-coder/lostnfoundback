@@ -64,6 +64,7 @@ public class UserController {
         // Vérifier si l'utilisateur normal est trouvé
         if (user != null) {
             System.out.println("Nom d'utilisateur : " + user.getUsername());
+           
             return ResponseEntity.ok(user);
         }
         
@@ -73,6 +74,9 @@ public class UserController {
             Users superUser = new Users(); // Créez un objet pour le super utilisateur
             superUser.setUsername("Admin");
             superUser.setEmail(superUserEmail);
+            Roles role=new Roles();
+            role.setName("SUPERADMIN");
+            superUser.setRole(role);
              // Assurez-vous d'avoir ce champ dans votre modèle
             
             System.out.println("Nom d'utilisateur : " + superUser.getUsername());

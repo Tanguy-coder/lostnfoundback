@@ -22,6 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -98,7 +99,7 @@ public class AnnonceController {
         a.setDate(laDate);
         a.setUser(u);
         a.setDate_publication(new Date());
-        a.setStatus(true);
+        a.setStatus("false");
         Annonces savedAnnonce = annonceService.addAnnonce(a);
         return ResponseEntity.ok(savedAnnonce);
     }
@@ -131,5 +132,36 @@ public class AnnonceController {
         annonceRepository.save(updateAnnonce);
         return ResponseEntity.ok(updateAnnonce);
     }
+    
+    
+    
+    @PutMapping("/{id}/valider")
+    public ResponseEntity<?> validerAnnonce(@PathVariable Long id) {
+        Optional<Annonces> annonceOpt = annonceRepository.findById(id);
+        if (annonceOpt.isPresent()) {
+            Annonces annonce = annonceOpt.get();
+            annonce.setStatus("true"); // Mise à jour du statut
+            annonceRepository.save(annonce);
+
+            // Retourne un objet JSON
+            return ResponseEntity.ok(Map.of("message", "Annonce validée avec succès", "id", annonce.getId()));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", "Annonce non trouvée"));
+        }
+    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteAnnonce(@PathVariable Long id) {
+        try {
+            annonceService.deleteAnnonce(id);
+            System.out.println("supprimé");
+            return ResponseEntity.ok("Annonce supprimée avec succès !");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Erreur lors de la suppression de l'annonce.");
+        }
+    } 
+    
+      
 
 }

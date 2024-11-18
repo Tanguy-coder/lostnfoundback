@@ -32,7 +32,7 @@ public class Users {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     
-    @JsonIgnore // Ignore cette relation lors de la sérialisation
+    
     private Roles role;
 
     public Users() {
