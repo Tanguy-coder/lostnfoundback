@@ -161,7 +161,17 @@ public class AnnonceController {
             return ResponseEntity.status(500).body("Erreur lors de la suppression de l'annonce.");
         }
     } 
-    
+
+//    @GetMapping("/latest")
+//    public ResponseEntity<List<Annonces>> getLatestAnnonces() {
+//        return ResponseEntity.ok(annonceService.findTop5ByOrderByDatePublicationDesc());
+//    }
+
+    @GetMapping("/latest")
+    public List<Annonces> getLatestAnnonces() {
+        return annonceRepository.getLatestAnnnonces();
+    }
+
       
 
 }

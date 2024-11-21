@@ -69,11 +69,13 @@ public class AnnonceServiceImplement implements AnnonceService {
             throw new IllegalArgumentException("Annonce non trouvée.");
         }
     }
-   
-    
-  
-    
-    
+
+    @Override
+    public List<Annonces> findTop5ByOrderByDatePublicationDesc() {
+        return annonceRepository.getLatestAnnnonces();
+    }
+
+
 }
     
 

@@ -11,6 +11,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // Remplace ce chemin par le chemin où les fichiers sont stockés localement
         registry.addResourceHandler("uploads/**")
-                .addResourceLocations("file:/C:/Users/HP-Miray/Downloads/front_ang1/lostnfoundback/uploads/");
+                .addResourceLocations("D:\\COURS UNCHK\\PROJET OPERATIONNEL\\Project\\Branch_Malick\\lostnfoundback\\uploads\\");
     }
 }
