@@ -152,13 +152,13 @@ public class AnnonceController {
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteAnnonce(@PathVariable Long id) {
+    public void deleteAnnonce(@PathVariable Long id) {
         try {
             annonceService.deleteAnnonce(id);
             System.out.println("supprimé");
-            return ResponseEntity.ok("Annonce supprimée avec succès !");
+           
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Erreur lors de la suppression de l'annonce.");
+            System.out.println(e.getMessage());
         }
     } 
 

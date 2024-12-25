@@ -34,6 +34,10 @@ public class Users {
     
     
     private Roles role;
+    
+    public Users( Long id) {
+        this.id = id;
+    }
 
     public Users() {
         super();

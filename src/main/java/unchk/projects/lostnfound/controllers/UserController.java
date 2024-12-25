@@ -63,7 +63,7 @@ public class UserController {
 
         // Vérifier si l'utilisateur normal est trouvé
         if (user != null) {
-            System.out.println("Nom d'utilisateur : " + user.getUsername());
+            System.out.println("Nom d'utilisateur normal : " + user.getUsername());
            
             return ResponseEntity.ok(user);
         }
